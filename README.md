@@ -14,7 +14,7 @@ Idea would be to design a model through which multiple sources can contribute to
 Would want to enable the ability to remove songs that have already been checked out and were not liked and keep those or archive those songs that were liked
 
 ## Starting simple
-Let's just hack together a little app that scrapes We are the guard and gets me the freshest music for the week and displays it in a simple ui (**may even just send me an email with the music for this week**)
+Let's just hack together a little app that scrapes We are the guard and gets me the freshe`st music for the week and displays it in a simple ui (**may even just send me an email with the music for this week**)
 
 
 
