@@ -1,9 +1,14 @@
 import { fetchToken } from './spotifyTokenService';
 
 function onLoad() {
-    console.log('Ready to party!');
+    var spotifyApi = new SpotifyWebApi();
     fetchToken()
-        .then(token => console.log(token))
+        .then(token => {
+            spotifyApi.setAccessToken(token.access_token);
+            spotifyApi.searchArtists('Dispatch')
+                .then(artists => console.log(artists))
+                .catch(error => console.error(error));
+        })
         .catch(error => console.error(error));
 }
 
