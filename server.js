@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.sendFile('index.html');
 });
 
-app.get('/token', (req, res) => {
+app.get('/api/token', (req, res) => {
     spotifyTokenService.getToken()
         .then(token => res.json(token))
         .catch(error => res.status(500).json(error));
