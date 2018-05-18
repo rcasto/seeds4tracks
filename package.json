@@ -7,7 +7,7 @@
     "build": "npm-run-all clean --parallel build:* --sequential html:inline clean:build html:rename",
     "build:scripts": "rollup --config rollup/rollup.config.js",
     "build:sass": "sass public/styles/index.scss dist/public/styles/index.css --style compressed --embed-source-map",
-    "build:move": "cpy public/index.html server.js dist --parents",
+    "build:move": "cpy config.json public/index.html server.js lib/*.js dist --parents",
     "html:inline": "html-inline -i dist/public/index.html | html-minifier --collapse-boolean-attributes --collapse-inline-tag-whitespace --collapse-whitespace --decode-entities --minify-css --minify-js --remove-attribute-quotes --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-tag-whitespace -o dist/public/index.inline.html",
     "html:rename": "ncp dist/public/index.inline.html dist/public/index.html && rimraf dist/public/index.inline.html",
     "dev": "npm-run-all clean build:move --parallel start dev:*",

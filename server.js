@@ -1,8 +1,3 @@
-/*
-    This is the simple server we are starting out with in the project template
-    Edit it to your needs, right now it really just serves up the index.html file
-    from the dist/public directory
-*/
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
@@ -21,11 +16,11 @@ app.get('/', (req, res) => {
     res.sendFile('index.html');
 });
 
-// app.get('/token', (req, res) => {
-//     spotifyTokenService.getToken()
-//         .then(token => console.log(token))
-//         .catch(error => console.error(error));
-// });
+app.get('/token', (req, res) => {
+    spotifyTokenService.getToken()
+        .then(token => res.json(token))
+        .catch(error => res.status(500).json(error));
+});
 
 app.listen(port, 
     () => console.log(`Server started on port ${port}`));
