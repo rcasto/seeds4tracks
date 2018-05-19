@@ -1,5 +1,5 @@
 // import { fetchToken } from './spotifyTokenService';
-import { createArtist } from './artistService';
+import { addArtist } from './artistService';
 
 function onLoad() {
     var artistInput = document.getElementById('artist-input');
@@ -28,7 +28,7 @@ function onLoad() {
 
 function onAddNewArtist(artist) {
     console.log(artist);
-    document.body.appendChild(createArtist(artist));
+    addArtist(artist);
 }
 
 window.addEventListener('load', onLoad, false);
