@@ -1,8 +1,37 @@
-/*
-    This is the entry point for styles utilizing sass, import other styles through this
-    You could also have multiple css bundles if you wanted, but is out of scope
-    for this project template.
-*/
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
 body {
     background-color: lawngreen;
+}
+
+.music-app {
+    width: 85%;
+    margin: 0 auto;
+
+    #artist-input {
+        width: 100%;
+        padding: 6px;
+    }
+
+    #artist-container {
+        background-color: #f2f2f2;
+        margin-top: 6px;
+
+        .artist {
+            display: flex;
+            background-color: white;
+            padding: 6px;
+            margin-top: 6px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            .artist-remove {
+                margin-left: auto;
+            }
+        }
+    }
 }

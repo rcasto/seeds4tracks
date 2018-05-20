@@ -7,18 +7,17 @@
     <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-    <input type="text" name="Artist" id="artist-input" placeholder="Enter an artist...">
-
-    <div id="artist-container"></div>
-
-    <!-- Artist template -->
-    <template id="artist-template">
-        <div class="artist">
-            <span class="artist-name"></span>
-            <button class="artist-remove">&#10005;</button>
-        </div>
-    </template>
-
+    <div class="music-app">
+        <input type="text" name="Artist" id="artist-input" placeholder="Enter an artist...">
+        <div id="artist-container"></div>
+        <!-- Artist template -->
+        <template id="artist-template">
+            <div class="artist">
+                <span class="artist-name"></span>
+                <button class="artist-remove">&#10005;</button>
+            </div>
+        </template>
+    </div>
     <script src="https://unpkg.com/spotify-web-api-js@0.24.0/src/spotify-web-api.js"></script>
     <!-- Don't remove this script as it points to your javascript bundle -->
     <script src="scripts/index.js"></script>
