@@ -14,6 +14,7 @@ function hasArtist(artistName) {
 }
 
 function removeArtist(artistName) {
+    // TODO: implement
     console.log(artistName);
 }
 
