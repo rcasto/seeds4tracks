@@ -3,16 +3,9 @@ import { addArtist } from './artistService';
 
 function onLoad() {
     var artistInput = document.getElementById('artist-input');
-    artistInput.addEventListener('keydown', (event) => {
-        if (event.keyCode !== 13) {
-            return;
-        }
-        if (!artistInput.value) {
-            return;
-        }
-        onAddNewArtist(artistInput.value);
-        artistInput.value = '';
-    });
+    var findNewMusicButton = document.getElementById('find-new-music');
+    artistInput.addEventListener('keydown', onKeyFindNewArtist, false);
+    findNewMusicButton.addEventListener('click', onFindNewMusic, false);
 
     // TODO: refactor out into a separate service
     // var spotifyApi = new SpotifyWebApi();
@@ -24,6 +17,22 @@ function onLoad() {
     //             .catch(error => console.error(error));
     //     })
     //     .catch(error => console.error(error));
+}
+
+function onFindNewMusic(event) {
+
+}
+
+function onKeyFindNewArtist(event) {
+    var artistInput = event.target;
+    if (event.keyCode !== 13) {
+        return;
+    }
+    if (!artistInput.value) {
+        return;
+    }
+    onAddNewArtist(artistInput.value);
+    artistInput.value = '';
 }
 
 function onAddNewArtist(artist) {
