@@ -3,6 +3,8 @@ const tokenApiUrl = '/api/token';
 var token = null;
 var spotifyApi = new SpotifyWebApi();
 
+export const maxSeedArtists = 5;
+
 // TODO: implement auto refreshing token
 // Expires in an hour right now (keeping cached in memory)
 export function fetchToken(shouldRefreshToken = true) {

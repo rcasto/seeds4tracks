@@ -1,4 +1,6 @@
 import { addArtist, getArtists } from './artistService';
+import { getCombinationsWithoutRepetitions } from './utilityService';
+import { maxSeedArtists } from './spotifyService';
 
 function onLoad() {
     var artistInput = document.getElementById('artist-input');
@@ -9,7 +11,12 @@ function onLoad() {
 }
 
 function onFindNewMusic(event) {
-    console.log(getArtists());
+    var artists = getArtists();
+    var artistCombinations = [artists];
+    if (artists.length >= maxSeedArtists) {
+        artistCombinations = getCombinationsWithoutRepetitions(artists, maxSeedArtists);
+    }
+    console.log(artistCombinations);
 }
 
 function onKeyFindNewArtist(event) {
