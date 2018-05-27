@@ -34,7 +34,7 @@ export function selectRandomIndices(array, numIndices) {
     array = array || [];
     numIndices = numIndices || 1;
     if (numIndices > array.length) {
-        return [];
+        numIndices = array.length;
     }
     while (indexSet.size < numIndices) {
         randomIndex = selectRandomIndex(array);
