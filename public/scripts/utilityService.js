@@ -32,7 +32,7 @@ export function selectRandomIndices(array, numIndices) {
     var indices = [];
     var randomIndex;
     array = array || [];
-    numIndices = numIndices || 0;
+    numIndices = numIndices || 1;
     if (numIndices > array.length) {
         return [];
     }
@@ -48,7 +48,7 @@ export function selectRandomIndices(array, numIndices) {
     return indices;
 }
 
-export function selectRandomIndex(array) {
+function selectRandomIndex(array) {
     return Math.floor(Math.random() * (array || []).length);
 }
 
