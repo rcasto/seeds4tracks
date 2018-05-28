@@ -1,6 +1,8 @@
 import { addArtist, getArtists } from './artistService';
 import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices } from './utilityService';
-import { maxSeedArtists, maxNumSeedSetsToPick, getRecommendationsFromArtists } from './spotifyService';
+import { maxSeedArtists, maxNumSeedSetsToPick, getRecommendationsFromArtists, errors } from './spotifyService';
+
+const maxRecommendationTracks = 20;
 
 function onLoad() {
     var artistInput = document.getElementById('artist-input');
@@ -8,27 +10,42 @@ function onLoad() {
 
     artistInput.addEventListener('keydown', onKeyFindNewArtist, false);
     findNewMusicButton.addEventListener('click', onFindNewMusic, false);
-
-    getRecommendationsFromArtists(['Dispatch', 'Guster'])
-        .then(tracks => tracks.map(track => {
-            return `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
-        }))
-        .then(tracksInfo => console.log(tracksInfo))
-        .catch(error => console.error(error));
 }
 
 function onFindNewMusic(event) {
     var artists = getArtists();
-    var artistCombinations = [artists];
+    var artistCombinations;
     // Not all combinations of artists will be used
     // a random sample of the combinations of artist seeds
     // will be used
-    if (artists.length >= maxSeedArtists) {
+    if (artists.length > maxSeedArtists) {
         artistCombinations = shuffle(getCombinationsWithoutRepetitions(artists, maxSeedArtists));
         artistCombinations = selectRandomIndices(artistCombinations, maxNumSeedSetsToPick)
             .map(selectedArtistCombinationIndex => artistCombinations[selectedArtistCombinationIndex]);
+    } else {
+        artistCombinations = [artists];
     }
-    console.log(artistCombinations);
+    Promise.all(artistCombinations
+        .map(artistCombination => getRecommendationsFromArtists(artistCombination)))
+        .then(trackArrays => trackArrays.reduce((tracks, currTracks) => tracks.concat(currTracks), []))
+        // TODO: de-dupe aggregrated track list here
+        .then(tracks => {
+            if (tracks.length > maxRecommendationTracks) {
+                tracks = selectRandomIndices(tracks, maxRecommendationTracks)
+                    .map(randomTrackIndex => tracks[randomTrackIndex]);
+            }
+            return tracks;
+        })
+        .then(tracks => tracks.map(track => {
+            return `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
+        }))
+        .then(tracksInfo => console.log(tracksInfo))
+        .catch(error => {
+            if (error && error.reason && error.reason === errors.noSeedArtists) {
+                return;
+            }
+            console.error(error);
+        });
 }
 
 function onKeyFindNewArtist(event) {
@@ -44,7 +61,6 @@ function onKeyFindNewArtist(event) {
 }
 
 function onAddNewArtist(artist) {
-    console.log(artist);
     addArtist(artist);
 }
 
