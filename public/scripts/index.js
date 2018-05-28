@@ -1,5 +1,5 @@
 import { addArtist, getArtists } from './artistService';
-import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices } from './utilityService';
+import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices, dedupe } from './utilityService';
 import { maxSeedArtists, maxNumSeedSetsToPick, getRecommendationsFromArtists, errors } from './spotifyService';
 
 const maxRecommendationTracks = 20;
@@ -28,7 +28,7 @@ function onFindNewMusic(event) {
     Promise.all(artistCombinations
         .map(artistCombination => getRecommendationsFromArtists(artistCombination)))
         .then(trackArrays => trackArrays.reduce((tracks, currTracks) => tracks.concat(currTracks), []))
-        // TODO: de-dupe aggregrated track list here
+        .then(tracks => dedupe(tracks))
         .then(tracks => {
             if (tracks.length > maxRecommendationTracks) {
                 tracks = selectRandomIndices(tracks, maxRecommendationTracks)

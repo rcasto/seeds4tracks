@@ -42,9 +42,7 @@ export function selectRandomIndices(array, numIndices) {
             indexSet.add(randomIndex);
         }
     }
-    indexSet.forEach(index => {
-        indices.push(index);
-    });
+    indexSet.forEach(index => indices.push(index));
     return indices;
 }
 
@@ -81,4 +79,12 @@ function swap(array, index1, index2) {
     var tmp = array[index1];
     array[index1] = array[index2];
     array[index2] = tmp;
+}
+
+export function dedupe(array) {
+    var uniqueItems = new Set();
+    var dedupedArray = [];
+    (array || []).forEach(item => uniqueItems.add(item));
+    uniqueItems.forEach(uniqueItem => dedupedArray.push(uniqueItem));
+    return dedupedArray;
 }
