@@ -6,6 +6,10 @@ var spotifyApi = new SpotifyWebApi();
 export const maxSeedArtists = 5;
 export const maxNumSeedSetsToPick = 6;
 
+export const errors = {
+    noSeedArtists: 'No seed artists provided'
+};
+
 // TODO: implement auto refreshing token
 // Expires in an hour right now (keeping cached in memory)
 export function fetchToken(shouldRefreshToken = true) {
@@ -40,6 +44,11 @@ export function findIdForArtist(artistName) {
 
 export function getRecommendationsFromArtists(artists) {
     artists = (artists || []).slice(0, maxSeedArtists);
+    if (!artists.length) {
+        return Promise.reject({
+            reason: errors.noSeedArtists
+        });
+    }
     return fetchToken()
         .then(() => Promise.all(artists.map(artist => findIdForArtist(artist))))
         .then(artistIds => artistIds.filter(artistId => !!artistId))
