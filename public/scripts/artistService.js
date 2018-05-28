@@ -9,13 +9,14 @@ function init() {
 }
 
 function hasArtist(artistName) {
-    // TODO: implement this check properly
-    return false;
+    return artistName && artists.some(artist => artist === artistName);
 }
 
 function removeArtist(artistName) {
-    // TODO: implement
-    console.log(artistName);
+    var artistIndex = artists.indexOf(artistName);
+    if (artistIndex >= 0) {
+        artists.splice(artistIndex, 1);
+    }
 }
 
 export function getArtists() {
@@ -37,7 +38,11 @@ function createArtist(artistName) {
     var artistNameElem = artistTemplateClone.querySelector('.artist-name');
     var artistRemoveButton = artistTemplateClone.querySelector('.artist-remove');
     artistNameElem.appendChild(document.createTextNode(artistName));
-    artistRemoveButton.addEventListener('click', () => removeArtist(artistName), false);
+    artistRemoveButton.addEventListener('click', (event) => {
+        var artist = event.target.parentNode;
+        artist.remove();
+        removeArtist(artistName);
+    }, false);
     return artistTemplateClone;
 }
 
