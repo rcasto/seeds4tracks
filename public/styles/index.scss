@@ -34,4 +34,19 @@ body {
             }
         }
     }
+
+    #track-container {
+        .track {
+            display: flex;
+
+            .track-art {
+                max-width: 240px;
+                width: 100%;
+
+                .track-art-img {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

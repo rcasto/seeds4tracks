@@ -11,11 +11,24 @@
         <input type="text" name="Artist" id="artist-input" placeholder="Enter an artist...">
         <div id="artist-container"></div>
         <button id="find-new-music">Find new music</button>
+        <div id="track-container"></div>
         <!-- Artist template -->
         <template id="artist-template">
             <div class="artist">
                 <span class="artist-name"></span>
                 <button class="artist-remove">&#10005;</button>
+            </div>
+        </template>
+        <!-- Recommended track template -->
+        <template id="track-template">
+            <div class="track">
+                <div class="track-art">
+                    <img class="track-art-img">
+                </div>
+                <div class="track-info">
+                    <div class="track-info-title"></div>
+                    <div class="track-info-artist"></div>
+                </div>
             </div>
         </template>
     </div>
