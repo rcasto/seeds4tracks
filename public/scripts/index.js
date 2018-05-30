@@ -1,7 +1,7 @@
 import { addArtist, getArtists } from './artistService';
 import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices, dedupe } from './utilityService';
 import { maxSeedArtists, maxNumSeedSetsToPick, getRecommendationsFromArtists, errors } from './spotifyService';
-import { addTrack } from './trackService';
+import { addTrack, clearTracks } from './trackService';
 
 const maxRecommendationTracks = 20;
 
@@ -37,10 +37,13 @@ function onFindNewMusic(event) {
             }
             return tracks;
         })
-        .then(tracks => tracks.map(track => {
-            addTrack(track);
-            return `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
-        }))
+        .then(tracks => {
+            clearTracks();
+            return tracks.map(track => {
+                addTrack(track);
+                return `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
+            });
+        })
         .then(tracksInfo => console.log(tracksInfo))
         .catch(error => {
             if (error && error.reason && error.reason === errors.noSeedArtists) {

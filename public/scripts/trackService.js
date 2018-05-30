@@ -1,3 +1,5 @@
+import { removeNodeChildren } from './utilityService';
+
 var trackTemplate = null;
 var trackContainer = null;
 
@@ -9,6 +11,10 @@ function init() {
 export function addTrack(track) {
     var trackElem = createTrack(track);
     trackContainer.appendChild(trackElem);
+}
+
+export function clearTracks() {
+    removeNodeChildren(trackContainer);
 }
 
 function createTrack(track) {

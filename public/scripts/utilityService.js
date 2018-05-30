@@ -88,3 +88,13 @@ export function dedupe(array) {
     uniqueItems.forEach(uniqueItem => dedupedArray.push(uniqueItem));
     return dedupedArray;
 }
+
+// Taken from https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+export function removeNodeChildren(node) {
+    if (!(node instanceof Node)) {
+        return;
+    }
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
+    }
+}
