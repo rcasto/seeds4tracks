@@ -1,6 +1,7 @@
 const tokenApiUrl = '/api/token';
 
 var token = null;
+var tokenTimestampInMs = null;
 var spotifyApi = new SpotifyWebApi();
 
 export const maxSeedArtists = 5;
@@ -10,18 +11,25 @@ export const errors = {
     noSeedArtists: 'No seed artists provided'
 };
 
-// TODO: implement auto refreshing token
-// Expires in an hour right now (keeping cached in memory)
-export function fetchToken(shouldRefreshToken = true) {
-    if (token) {
+export function fetchToken() {
+    if (isTokenValid()) {
         return Promise.resolve(token);
     }
     return fetch(tokenApiUrl)
         .then(res => res.json())
         .then(_token => {
             token = _token;
+            tokenTimestampInMs = Date.now();
             spotifyApi.setAccessToken(token.access_token);
             return token;
+        })
+        // On error fetching new token, make sure
+        // to clear existing token to try again with
+        // fresh state next time (could try again on timeout)
+        .catch(error => {
+            token = null;
+            tokenTimestampInMs = null;
+            return Promise.reject(error);
         });
 }
 
@@ -56,4 +64,13 @@ export function getRecommendationsFromArtists(artists) {
             seed_artists: artistIds.join(',')
         }))
         .then(recommendations => recommendations.tracks || []);
+}
+
+function isTokenValid() {
+    if (typeof token !== 'object' || typeof tokenTimestampInMs !== 'number') {
+        return false;
+    }
+    let currentTimestampInMs = Date.now();
+    let elapsedTokenDurationInSeconds = (currentTimestampInMs - tokenTimestampInMs) / 1000;
+    return elapsedTokenDurationInSeconds < (token['expires_in'] || Number.MAX_VALUE);
 }
