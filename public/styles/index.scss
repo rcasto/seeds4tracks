@@ -12,25 +12,30 @@ body {
 
     #artist-input {
         width: 100%;
-        padding: 6px;
+        padding: 12px;
+        line-height: 32px;
+        font-size: 24px;
     }
 
     #artist-container {
         background-color: #f2f2f2;
-        margin-top: 6px;
+        margin: 6px 0;
 
         .artist {
             display: flex;
+            align-items: center;
             background-color: white;
             padding: 6px;
-            margin-top: 6px;
+            margin: 6px 0 0 0;
 
             &:first-child {
-                margin-top: 0;
+                margin: 0;
             }
 
             .artist-remove {
                 margin-left: auto;
+                width: 36px;
+                height: 36px;
             }
         }
     }
@@ -38,14 +43,24 @@ body {
     #track-container {
         .track {
             display: flex;
+            border: 1px solid black;
+            margin: 0 0 6px 0;
+
+            &:last-child {
+                margin: 0;
+            }
 
             .track-art {
-                max-width: 240px;
+                max-width: 96px;
                 width: 100%;
 
                 .track-art-img {
                     width: 100%;
                 }
+            }
+
+            .track-info {
+                margin-left: 6px;
             }
         }
     }

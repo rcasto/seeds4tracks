@@ -7,19 +7,24 @@ const maxRecommendationTracks = 20;
 
 function onLoad() {
     var artistInput = document.getElementById('artist-input');
-    var findNewMusicButton = document.getElementById('find-new-music');
+    var artistContainer = document.getElementById('artist-container');
 
     artistInput.addEventListener('keydown', onKeyFindNewArtist, false);
-    findNewMusicButton.addEventListener('click', onFindNewMusic, false);
+    artistContainer.addEventListener('click', onFindNewMusic, false);
 }
 
-function onFindNewMusic(event) {
+function onFindNewMusic() {
     var artists = getArtists();
+    var numArtists = artists.length || 0;
     var artistCombinations;
+    if (numArtists === 0) {
+        clearTracks();
+        return;
+    }
     // Not all combinations of artists will be used
     // a random sample of the combinations of artist seeds
     // will be used
-    if (artists.length > maxSeedArtists) {
+    if (numArtists > maxSeedArtists) {
         artistCombinations = shuffle(getCombinationsWithoutRepetitions(artists, maxSeedArtists));
         artistCombinations = selectRandomIndices(artistCombinations, maxNumSeedSetsToPick)
             .map(selectedArtistCombinationIndex => artistCombinations[selectedArtistCombinationIndex]);
@@ -39,12 +44,8 @@ function onFindNewMusic(event) {
         })
         .then(tracks => {
             clearTracks();
-            return tracks.map(track => {
-                addTrack(track);
-                return `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
-            });
+            tracks.forEach(track => addTrack(track));
         })
-        .then(tracksInfo => console.log(tracksInfo))
         .catch(error => {
             if (error && error.reason && error.reason === errors.noSeedArtists) {
                 return;
@@ -55,18 +56,19 @@ function onFindNewMusic(event) {
 
 function onKeyFindNewArtist(event) {
     var artistInput = event.target;
+
     if (event.keyCode !== 13) {
         return;
     }
     if (!artistInput.value) {
         return;
     }
-    onAddNewArtist(artistInput.value);
-    artistInput.value = '';
-}
 
-function onAddNewArtist(artist) {
-    addArtist(artist);
+    let artist = artistInput.value;
+    artistInput.value = '';
+
+    let wasArtistAdded = addArtist(artist);
+    wasArtistAdded && onFindNewMusic();
 }
 
 window.addEventListener('load', onLoad, false);

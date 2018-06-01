@@ -23,14 +23,20 @@ export function getArtists() {
     return artists;
 }
 
+/**
+ * Adds new artist supplied to artist container using artist template
+ * @param {string} artistName 
+ * @returns {boolean} True = added new artist, False = artist not added (already had this artist)
+ */
 export function addArtist(artistName) {
     // Don't add an artist that was already added
     if (hasArtist(artistName)) {
-        return;
+        return false;
     }
     var artist = createArtist(artistName);
-    artistContainer.appendChild(artist);
-    artists.push(artistName);
+    artistContainer.insertBefore(artist, artistContainer.firstChild);
+    artists.unshift(artistName);
+    return true;
 }
 
 function createArtist(artistName) {

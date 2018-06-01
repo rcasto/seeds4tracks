@@ -53,7 +53,7 @@ function selectRandomIndex(array) {
 /**
  * Right now this would change the array inline to be shuffled
  * Would not return a copy that is shuffled
- * @param { The array to be shuffled } array 
+ * @param {Object[]} array
  */
 export function shuffle(array) {
     var randomIndex, arrayLength, i;

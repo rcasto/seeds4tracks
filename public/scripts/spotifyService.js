@@ -36,7 +36,8 @@ export function fetchToken() {
 /**
  * Probably want to memoize/cache artistNames to avoid double searching
  * for artists
- * @param {Artist name as string to find Spotify Id for} artistName 
+ * @param {string} artistName
+ * @returns {string} Spotify id for provided artist
  */
 export function findIdForArtist(artistName) {
     return fetchToken()
