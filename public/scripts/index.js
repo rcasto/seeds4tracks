@@ -10,7 +10,12 @@ function onLoad() {
     var artistContainer = document.getElementById('artist-container');
 
     artistInput.addEventListener('keydown', onKeyFindNewArtist, false);
-    artistContainer.addEventListener('click', onFindNewMusic, false);
+    artistContainer.addEventListener('click', (event) => {
+        var targetClassList = event.target.classList;
+        if (targetClassList.contains('artist-remove')) {
+            onFindNewMusic();
+        }
+    }, false);
 }
 
 function onFindNewMusic() {
