@@ -5,7 +5,7 @@ var tokenTimestampInMs = null;
 var spotifyApi = new SpotifyWebApi();
 
 export const maxSeedArtists = 5;
-export const maxNumSeedSetsToPick = 10;
+export const maxNumSeedSetsToPick = 15;
 
 export const errors = {
     noSeedArtists: 'No seed artists provided'
