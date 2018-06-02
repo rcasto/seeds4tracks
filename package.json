@@ -5,7 +5,7 @@
   "main": "server.js",
   "engines": {
     "node": ">=9.9.0",
-    "npm": ">=5.6.0"
+    "npm": ">=6.1.0"
   },
   "scripts": {
     "build": "npm-run-all clean --parallel build:* --sequential html:minify",
