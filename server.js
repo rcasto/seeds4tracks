@@ -6,7 +6,7 @@ const path = require('path');
 const spotifyTokenService = require('./lib/spotifyTokenService');
 
 var app = express();
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 
 app.use(helmet());
 app.use(compression());
