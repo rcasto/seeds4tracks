@@ -81,11 +81,12 @@ function isTokenValid() {
 
 function handleError(error, cb) {
     var status = error && error.status;
+    var retryAfterInSeconds = parseInt(error.getResponseHeader('Retry-After'), 10) || 1;
     if (status === 429) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(cb());
-            }, 500);
+            }, retryAfterInSeconds * 1000);
         });
     }
     return Promise.reject(error);
