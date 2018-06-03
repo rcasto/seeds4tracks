@@ -30,7 +30,7 @@ export function fetchToken() {
         .catch(error => {
             token = null;
             tokenTimestampInMs = null;
-            return Promise.reject(error);
+            return handleError(error, fetchToken);
         });
 }
 
@@ -49,7 +49,8 @@ export function findIdForArtist(artistName) {
                 return artists[0].id;
             }
             return null;
-        });
+        })
+        .catch(error => handleError(error, findIdForArtist.bind(this, artistName)));
 }
 
 export function getRecommendationsFromArtists(artists) {
@@ -65,7 +66,8 @@ export function getRecommendationsFromArtists(artists) {
         .then(artistIds => spotifyApi.getRecommendations({
             seed_artists: artistIds.join(',')
         }))
-        .then(recommendations => recommendations.tracks || []);
+        .then(recommendations => recommendations.tracks || [])
+        .catch(error => handleError(error, getRecommendationsFromArtists.bind(this, artists)));
 }
 
 function isTokenValid() {
@@ -75,4 +77,16 @@ function isTokenValid() {
     let currentTimestampInMs = Date.now();
     let elapsedTokenDurationInSeconds = (currentTimestampInMs - tokenTimestampInMs) / 1000;
     return elapsedTokenDurationInSeconds < (token['expires_in'] || Number.MAX_VALUE);
+}
+
+function handleError(error, cb) {
+    var status = error && error.status;
+    if (status === 429) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(cb());
+            }, 500);
+        });
+    }
+    return Promise.reject(error);
 }
