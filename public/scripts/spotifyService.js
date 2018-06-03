@@ -6,6 +6,7 @@ var spotifyApi = new SpotifyWebApi();
 
 export const maxSeedArtists = 5;
 export const maxNumSeedSetsToPick = 15;
+export const maxTrackRecommendations = 20;
 
 export const errors = {
     noSeedArtists: 'No seed artists provided'

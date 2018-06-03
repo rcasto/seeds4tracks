@@ -1,9 +1,7 @@
 import { addArtist, getArtists } from './artistService';
 import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices } from './utilityService';
-import { maxSeedArtists, maxNumSeedSetsToPick, getRecommendationsFromArtists, errors } from './spotifyService';
+import { maxSeedArtists, maxNumSeedSetsToPick, maxTrackRecommendations, getRecommendationsFromArtists, errors } from './spotifyService';
 import { addTrack, clearTracks, dedupeTracks } from './trackService';
-
-const maxRecommendationTracks = 20;
 
 function onLoad() {
     var artistInput = document.getElementById('artist-input');
@@ -41,8 +39,8 @@ function onFindNewMusic() {
         .then(trackArrays => trackArrays.reduce((tracks, currTracks) => tracks.concat(currTracks), []))
         .then(tracks => dedupeTracks(tracks))
         .then(tracks => {
-            if (tracks.length > maxRecommendationTracks) {
-                tracks = selectRandomIndices(tracks, maxRecommendationTracks)
+            if (tracks.length > maxTrackRecommendations) {
+                tracks = selectRandomIndices(tracks, maxTrackRecommendations)
                     .map(randomTrackIndex => tracks[randomTrackIndex]);
             }
             return tracks;
