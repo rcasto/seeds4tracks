@@ -81,14 +81,6 @@ function swap(array, index1, index2) {
     array[index2] = tmp;
 }
 
-export function dedupe(array) {
-    var uniqueItems = new Set();
-    var dedupedArray = [];
-    (array || []).forEach(item => uniqueItems.add(item));
-    uniqueItems.forEach(uniqueItem => dedupedArray.push(uniqueItem));
-    return dedupedArray;
-}
-
 // Taken from https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
 export function removeNodeChildren(node) {
     if (!(node instanceof Node)) {

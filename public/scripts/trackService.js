@@ -8,6 +8,14 @@ function init() {
     trackContainer = document.getElementById('track-container');
 }
 
+export function dedupeTracks(tracks) {
+    var uniqueTracksMap = new Map();
+    var dedupedTracks = [];
+    (tracks || []).forEach(track => uniqueTracksMap.set(track.id, track));
+    uniqueTracksMap.forEach((track, trackId) => dedupedTracks.push(track));
+    return dedupedTracks;
+}
+
 export function addTrack(track) {
     var trackElem = createTrack(track);
     trackContainer.appendChild(trackElem);
