@@ -85,7 +85,9 @@ function handleError(error, cb) {
     if (status === 429) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(cb());
+                cb()
+                    .then(resolve)
+                    .catch(reject);
             }, retryAfterInSeconds * 1000);
         });
     }
