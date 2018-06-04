@@ -3,31 +3,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Simple Starter Project Template</title>
+    <title>Input your favorite artists, output tracks you might like | Seeds4Tracks</title>
     <link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div class="music-app">
-        <input type="text" name="Artist" id="artist-input" placeholder="Enter an artist...">
-        <div id="artist-container"></div>
-        <div id="track-container"></div>
+        <header>
+            <h1>Seeds4Tracks</h1>
+            <div>
+                <span>Your favorite artists</span>
+                <span>&rarr;</span> 
+                <span>Tracks you might like</span>
+            </div>
+        </header>
+        <section>
+            <input type="text" name="Artist" id="artist-input" placeholder="Enter an artist...">
+            <div id="artist-container"></div>
+            <div id="track-container"></div>
+        </section>
         <!-- Artist template -->
         <template id="artist-template">
             <div class="artist">
                 <span class="artist-name"></span>
                 <button class="artist-remove">&#10005;</button>
-            </div>
-        </template>
-        <!-- Recommended track template -->
-        <template id="track-template">
-            <div class="track">
-                <div class="track-art">
-                    <img class="track-art-img">
-                </div>
-                <div class="track-info">
-                    <div class="track-info-title"></div>
-                    <div class="track-info-artist"></div>
-                </div>
             </div>
         </template>
     </div>

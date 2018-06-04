@@ -1,7 +1,7 @@
 {
-  "name": "artist-seed-discovery",
+  "name": "seeds4tracks",
   "version": "1.0.0",
-  "description": "Discover new music via supplied artist seeds",
+  "description": "Input your favorite artists, output tracks you might like",
   "main": "server.js",
   "engines": {
     "node": ">=9.9.0",
