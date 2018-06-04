@@ -4,12 +4,18 @@ const compression = require('compression');
 const path = require('path');
 
 const spotifyTokenService = require('./lib/spotifyTokenService');
+const httpsRedirect = require('./lib/httpsRedirect');
+const wwwToNonWwwRedirect = require('./lib/wwwToNonWwwRedirect');
+const rootRedirect = require('./lib/rootRedirect');
 
 var app = express();
 var port = process.env.PORT || 3000;
 
 app.use(helmet());
 app.use(compression());
+app.use(httpsRedirect);
+app.use(wwwToNonWwwRedirect);
+app.use(rootRedirect);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
