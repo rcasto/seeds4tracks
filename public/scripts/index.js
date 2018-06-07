@@ -74,4 +74,7 @@ function onKeyFindNewArtist(event) {
     wasArtistAdded && onFindNewMusic();
 }
 
-window.addEventListener('load', onLoad, false);
+window.addEventListener('load', onLoad, {
+    capture: false,
+    once: true
+});
