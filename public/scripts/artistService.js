@@ -52,4 +52,6 @@ function createArtist(artistName) {
     return artistTemplateClone;
 }
 
-window.addEventListener('load', init, false);
+window.addEventListener('load', init, {
+    once: true
+});

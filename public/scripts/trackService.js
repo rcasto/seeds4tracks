@@ -33,4 +33,6 @@ function createTrack(track) {
     return iframe;
 }
 
-window.addEventListener('load', init, false);
+window.addEventListener('load', init, {
+    once: true
+});

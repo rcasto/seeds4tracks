@@ -3,7 +3,7 @@ import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices } from 
 import { maxSeedArtists, maxNumSeedSetsToPick, maxTrackRecommendations, getRecommendationsFromArtists, errors } from './spotifyService';
 import { addTrack, clearTracks, dedupeTracks } from './trackService';
 
-function onLoad() {
+function init() {
     var artistInput = document.getElementById('artist-input');
     var artistContainer = document.getElementById('artist-container');
 
@@ -74,7 +74,6 @@ function onKeyFindNewArtist(event) {
     wasArtistAdded && onFindNewMusic();
 }
 
-window.addEventListener('load', onLoad, {
-    capture: false,
+window.addEventListener('load', init, {
     once: true
 });
