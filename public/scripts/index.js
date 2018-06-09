@@ -38,7 +38,7 @@ function onFindNewMusic() {
         .map(artistCombination => getRecommendationsFromArtists(artistCombination)))
         .then(trackArrays => trackArrays.reduce((tracks, currTracks) => tracks.concat(currTracks), []))
         .then(tracks => dedupeTracks(tracks))
-        .then(track => shuffle(tracks))
+        .then(tracks => shuffle(tracks))
         .then(tracks => {
             if (tracks.length > maxTrackRecommendations) {
                 tracks = selectRandomIndices(tracks, maxTrackRecommendations)
