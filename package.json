@@ -26,7 +26,7 @@
     "start": "npm-run-all build start:server",
     "start:server": "node dist/server.js",
     "clean": "rimraf dist",
-    "deploy": "git push azure azure-deploy"
+    "deploy": "git push azure azure-deploy:master"
   },
   "keywords": [],
   "author": "Richie Casto",
