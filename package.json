@@ -2,7 +2,7 @@
   "name": "seeds4tracks",
   "version": "1.0.0",
   "description": "Input your favorite artists, output tracks you might like",
-  "main": "server.js",
+  "main": "dist/server.js",
   "engines": {
     "node": "^10",
     "npm": "^6"
@@ -22,11 +22,9 @@
     "move:server": "cpy server.js lib/*.js dist --parents",
     "move:config": "cpy config.json dist --parents",
     "move:package.json": "cpy package*.json dist --parents",
-    "move:yaml": "cpy app.yaml dist --parents",
     "start": "npm-run-all build start:server",
     "start:server": "node dist/server.js",
-    "clean": "rimraf dist",
-    "deploy": "git push azure azure-deploy:master"
+    "clean": "rimraf dist"
   },
   "keywords": [],
   "author": "Richie Casto",
