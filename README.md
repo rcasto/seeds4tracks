@@ -1,4 +1,4 @@
-#Music to checkout
+# Seeds4Tracks
 Idea is simple:
 - You like music
 - You check certain places often for new music

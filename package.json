@@ -4,8 +4,8 @@
   "description": "Input your favorite artists, output tracks you might like",
   "main": "server.js",
   "engines": {
-    "node": ">=9.9.0",
-    "npm": ">=6.1.0"
+    "node": "^10",
+    "npm": "^6"
   },
   "scripts": {
     "build": "npm-run-all clean --parallel build:* --sequential html:minify",
@@ -23,7 +23,7 @@
     "move:config": "cpy config.json dist --parents",
     "move:package.json": "cpy package*.json dist --parents",
     "move:yaml": "cpy app.yaml dist --parents",
-    "start": "node server.js",
+    "start": "npm-run-all build start:server",
     "start:server": "node dist/server.js",
     "clean": "rimraf dist",
     "deploy": "npm-run-all deploy:setup && cd dist && gcloud app deploy --project seeds4tracks --quiet",
