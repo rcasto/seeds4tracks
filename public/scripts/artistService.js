@@ -2,6 +2,7 @@ var artistTemplate = null;
 var artistContainer = null;
 
 var artists = [];
+var artistContainerHasArtistsClassName = "artist-container--has-artists";
 
 function init() {
     artistTemplate = document.getElementById('artist-template');
@@ -16,6 +17,9 @@ function removeArtist(artistName) {
     var artistIndex = artists.indexOf(artistName);
     if (artistIndex >= 0) {
         artists.splice(artistIndex, 1);
+    }
+    if (artists.length <= 0) {
+        artistContainer.classList.remove(artistContainerHasArtistsClassName);
     }
 }
 
@@ -34,6 +38,9 @@ export function addArtist(artistName) {
         return false;
     }
     var artist = createArtist(artistName);
+    if (!artistContainer.classList.contains(artistContainerHasArtistsClassName)) {
+        artistContainer.classList.add(artistContainerHasArtistsClassName);
+    }
     artistContainer.insertBefore(artist, artistContainer.firstChild);
     artists.unshift(artistName);
     return true;

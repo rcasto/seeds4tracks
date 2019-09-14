@@ -31,12 +31,23 @@ body {
         max-height: 120px;
         overflow: auto;
 
+        &.artist-container--has-artists {
+            border: 1px solid black;
+        }
+
         .artist {
             display: flex;
             align-items: center;
             background-color: white;
             padding: 6px;
-            border: 1px solid  black;
+            border-bottom: 1px solid black;
+
+            &:nth-child(odd) {
+                background-color: #e2e2e2;
+            }
+            &:last-of-type {
+                border-bottom: 0;
+            }
 
             .artist-remove {
                 margin-left: auto;

@@ -14,9 +14,14 @@ export function dedupeTracks(tracks) {
     return dedupedTracks;
 }
 
-export function addTrack(track) {
-    var trackElem = createTrack(track);
-    trackContainer.appendChild(trackElem);
+export function addTracks(tracks) {
+    var tracksFragment = document.createDocumentFragment();
+    
+    (tracks || [])
+        .map(track => createTrack(track))
+        .forEach(trackElem => tracksFragment.appendChild(trackElem));
+    
+    trackContainer.appendChild(tracksFragment);
 }
 
 export function clearTracks() {

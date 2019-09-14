@@ -1,7 +1,7 @@
 import { addArtist, getArtists } from './artistService';
 import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices } from './utilityService';
 import { maxSeedArtists, maxNumSeedSetsToPick, maxTrackRecommendations, getRecommendationsFromArtists, errors } from './spotifyService';
-import { addTrack, clearTracks, dedupeTracks } from './trackService';
+import { addTracks, clearTracks, dedupeTracks } from './trackService';
 
 function init() {
     var artistInput = document.getElementById('artist-input');
@@ -48,7 +48,7 @@ function onFindNewMusic() {
         })
         .then(tracks => {
             clearTracks();
-            tracks.forEach(track => addTrack(track));
+            addTracks(tracks);
         })
         .catch(error => {
             if (error && error.reason && error.reason === errors.noSeedArtists) {
@@ -64,14 +64,14 @@ function onKeyFindNewArtist(event) {
     if (event.keyCode !== 13) {
         return;
     }
-    if (!artistInput.value) {
+
+    let artist = artistInput.value && artistInput.value.trim();
+    if (!artist) {
         return;
     }
 
-    let artist = artistInput.value;
-    artistInput.value = '';
-
     let wasArtistAdded = addArtist(artist);
+    artistInput.value = '';
     wasArtistAdded && onFindNewMusic();
 }
 
