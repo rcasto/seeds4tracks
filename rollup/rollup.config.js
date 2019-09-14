@@ -1,5 +1,5 @@
 import babel from 'rollup-plugin-babel';
-import uglify from 'rollup-plugin-uglify';
+import { terser } from "rollup-plugin-terser";
 
 export default {
   input: 'public/scripts/index.js',
@@ -9,9 +9,9 @@ export default {
     name: 'Index'
   },
   plugins: [
-    uglify(),
+    terser(),
     babel({
       exclude: 'node_modules/**' // only transpile our source code
-    })
+    }),
   ]
 };
