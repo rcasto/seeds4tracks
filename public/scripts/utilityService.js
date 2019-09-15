@@ -13,13 +13,13 @@ export function getCombinationsWithoutRepetitions(combinationOptions, combinatio
 
     for (let i = 0; i <= (combinationOptions.length - combinationLength); i += 1) {
         const smallerCombinations = getCombinationsWithoutRepetitions(
-        combinationOptions.slice(i + 1),
-        combinationLength - 1,
+            combinationOptions.slice(i + 1),
+            combinationLength - 1,
         );
 
         for (let j = 0; j < smallerCombinations.length; j += 1) {
-        const combination = [combinationOptions[i]].concat(smallerCombinations[j]);
-        combinations.push(combination);
+            const combination = [combinationOptions[i]].concat(smallerCombinations[j]);
+            combinations.push(combination);
         }
     }
 
@@ -69,8 +69,7 @@ export function shuffle(array) {
 // This would not work if the indices hold an object would it?
 function swap(array, index1, index2) {
     var arrayLength = (array || []).length;
-    if (
-        !arrayLength || 
+    if (!arrayLength ||
         (index1 < 0 || index1 >= arrayLength) ||
         (index2 < 0 || index2 >= arrayLength)
     ) {
@@ -88,5 +87,13 @@ export function removeNodeChildren(node) {
     }
     while (node.firstChild) {
         node.removeChild(node.firstChild);
+    }
+}
+
+export function parseJson(str) {
+    try {
+        return JSON.parse(str);
+    } catch(err) {
+        return null;
     }
 }

@@ -1,4 +1,5 @@
-import { addArtist, getArtists } from './artistService';
+import { addArtist } from './artistService';
+import { getSeeds } from './sessionService';
 import { getCombinationsWithoutRepetitions, shuffle, selectRandomIndices } from './utilityService';
 import { maxSeedArtists, maxNumSeedSetsToPick, maxTrackRecommendations, getRecommendationsFromArtists, errors } from './spotifyService';
 import { addTracks, clearTracks, dedupeTracks } from './trackService';
@@ -6,6 +7,9 @@ import { addTracks, clearTracks, dedupeTracks } from './trackService';
 function init() {
     var artistInput = document.getElementById('artist-input');
     var artistContainer = document.getElementById('artist-container');
+
+    // find new music based off of previous saved state, if any
+    onFindNewMusic();
 
     artistInput.addEventListener('keydown', onKeyFindNewArtist, false);
     artistContainer.addEventListener('click', (event) => {
@@ -17,7 +21,7 @@ function init() {
 }
 
 function onFindNewMusic() {
-    var artists = getArtists();
+    var artists = getSeeds();
     var numArtists = artists.length || 0;
     var artistCombinations;
     if (numArtists === 0) {

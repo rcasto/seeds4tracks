@@ -1,30 +1,31 @@
+import { addSeed, removeSeed, getSeeds } from './sessionService';
+
 var artistTemplate = null;
 var artistContainer = null;
 
-var artists = [];
 var artistContainerHasArtistsClassName = "artist-container--has-artists";
 
 function init() {
     artistTemplate = document.getElementById('artist-template');
     artistContainer = document.getElementById('artist-container');
-}
 
-function hasArtist(artistName) {
-    return artistName && artists.some(artist => artist === artistName);
+    var artistsFragment = document.createDocumentFragment();
+    getSeeds()
+        .map(artist => createArtist(artist))
+        .reverse()
+        .forEach(artistElem => artistsFragment.appendChild(artistElem));
+    setHasArtistsClass();
+
+    artistContainer.appendChild(artistsFragment);
 }
 
 function removeArtist(artistName) {
-    var artistIndex = artists.indexOf(artistName);
-    if (artistIndex >= 0) {
-        artists.splice(artistIndex, 1);
-    }
-    if (artists.length <= 0) {
+    removeSeed(artistName);
+
+    const seedCount = getSeeds().length;
+    if (seedCount <= 0) {
         artistContainer.classList.remove(artistContainerHasArtistsClassName);
     }
-}
-
-export function getArtists() {
-    return artists;
 }
 
 /**
@@ -33,17 +34,22 @@ export function getArtists() {
  * @returns {boolean} True = added new artist, False = artist not added (already had this artist)
  */
 export function addArtist(artistName) {
-    // Don't add an artist that was already added
-    if (hasArtist(artistName)) {
+    if (!addSeed(artistName)) {
         return false;
     }
     var artist = createArtist(artistName);
+    setHasArtistsClass();
+    artistContainer.insertBefore(artist, artistContainer.firstChild);
+    return true;
+}
+
+function setHasArtistsClass() {
+    if (getSeeds().length <= 0) {
+        return;
+    }
     if (!artistContainer.classList.contains(artistContainerHasArtistsClassName)) {
         artistContainer.classList.add(artistContainerHasArtistsClassName);
     }
-    artistContainer.insertBefore(artist, artistContainer.firstChild);
-    artists.unshift(artistName);
-    return true;
 }
 
 function createArtist(artistName) {
