@@ -7,7 +7,6 @@ const rateLimit = require("express-rate-limit");
 const spotifyTokenService = require('./lib/spotifyTokenService');
 const wwwToNonWwwRedirect = require('./lib/wwwToNonWwwRedirect');
 const rootRedirect = require('./lib/rootRedirect');
-const azureWebsiteRedirect = require('./lib/azureWebsiteRedirect');
 
 // Allow up to 25 requests to /api/ endpoints per IP per 5 minute window
 const apiLimiter = rateLimit({
@@ -23,7 +22,6 @@ app.set('trust proxy', 1);
 
 app.use(helmet());
 app.use(compression());
-app.use(azureWebsiteRedirect);
 app.use(wwwToNonWwwRedirect);
 app.use(rootRedirect);
 app.use(express.static(path.join(__dirname, 'public')));
