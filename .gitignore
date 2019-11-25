@@ -3,3 +3,4 @@ dist
 notes.md
 .vscode/*
 config.json
+coverage
