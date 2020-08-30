@@ -4,3 +4,5 @@ notes.md
 .vscode/*
 config.json
 coverage
+app.yaml
+.gcloudignore
