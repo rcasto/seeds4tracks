@@ -24,7 +24,9 @@
     "move:config": "cpy config.json dist --parents",
     "move:package.json": "cpy package*.json dist --parents",
     "start": "node dist/server.js",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "deploy": "npm-run-all build deploy:gcloud",
+    "deploy:gcloud": "gcloud config set project seeds4tracks-288015 && gcloud app deploy app.yaml"
   },
   "keywords": [],
   "author": "Richie Casto",
