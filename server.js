@@ -17,7 +17,9 @@ const port = process.env.PORT || 3000;
 // see https://expressjs.com/en/guide/behind-proxies.html
 app.set('trust proxy', 1);
 
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false,
+}));
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/', apiLimiter);
